@@ -19,21 +19,28 @@
   <body>
     <main>
       <div class="sidebar">
-        <h1>Gas Homie</h1>
         <form id="form">
+          <h1 class="sidebar__title">Gas Homie</h1>
+
           <label for="startInput">Starting Location:</label>
-          <input type="text" id="startInput" />
+          <input type="text" id="startInput" placeholder="" />
           <label for="endInput">Destination: </label>
-          <input type="text" id="endInput" />
-          <button type="submit">Find Route</button>
+          <input type="text" id="endInput" placeholder="" />
+          <button type="submit" class="button">Find Route</button>
         </form>
         <div class="display">
           <h2 class="display__title">Nearby Gas Stations</h2>
           <p class="display__label">Sort By:</p>
           <div class="display__button-container">
-            <button id="sortDurationButton" class="button">Duration</button>
-            <button id="sortDistanceButton" class="button">Distance</button>
-            <button id="sortPriceButton" class="button">Gas Price</button>
+            <button id="sortDurationButton" class="button sortButton">
+              Duration
+            </button>
+            <button id="sortDistanceButton" class="button sortButton">
+              Distance
+            </button>
+            <button id="sortPriceButton" class="button sortButton">
+              Gas Price
+            </button>
           </div>
           <div id="gasDisplay"></div>
         </div>

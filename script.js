@@ -25,6 +25,8 @@ function initMap() {
     zoom: 4,
   });
 
+  renderGasStations();
+
   // Init Services
   directionsService = new google.maps.DirectionsService();
   distanceMatrixService = new google.maps.DistanceMatrixService();
@@ -162,6 +164,15 @@ function nearbySearchCallback(results, status) {
 function renderGasStations() {
   gasDomElementsArray = [];
   gasDisplay.textContent = '';
+
+  if (gasStationObjectValues.length === 0) {
+    let notice = createDOMElement(
+      'h3',
+      ['gas__notice'],
+      'No Nearby Gas Stations Found'
+    );
+    gasDisplay.appendChild(notice);
+  }
 
   for (item of gasStationObjectValues) {
     let address = item.address;
