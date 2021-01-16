@@ -5,8 +5,11 @@
 }
 
 html {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+main {
+  display: flex;
 }
 
 #map {
@@ -14,24 +17,71 @@ html {
   height: 100vh;
 }
 
-#form {
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  display: flex;
-}
-
 .sidebar {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0.3em;
+  overflow: auto;
+  height: 100vh;
+  width: 20rem;
 }
 
-.RobotoFont {
+#form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 0.5em;
+}
+
+#form input {
+  margin-bottom: 0.7em;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#gasDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gas__item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.gas__item__title {
+}
+
+.gas__item__label {
+}
+
+.gas__item__button {
+}
+
+.button {
+  border-radius: 100px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.5em 1.2em;
+  outline: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+/*.RobotoFont {
   font-family: 'Times New Roman', serif;
   color: blue;
   font-weight: bold;
-  }
+  }*/
