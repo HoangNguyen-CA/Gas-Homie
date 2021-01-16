@@ -172,7 +172,7 @@ function renderGasStations(distanceValues) {
   );
 
   gasItemsArray = [];
-  gasDisplay.innerHTML = '';
+  gasDisplay.textContent = '';
 
   for (item of sortedValues) {
     let address = item.address;
