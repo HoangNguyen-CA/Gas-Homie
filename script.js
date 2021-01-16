@@ -152,6 +152,7 @@ function nearbySearchCallback(results, status) {
         distanceDictionary = updatedDict;
 
         gasStationObjectValues = Object.values(distanceDictionary);
+        sortByDuration(gasStationObjectValues, true); //DEFAULT
         renderGasStations();
       } else {
         handleError('Distance Matrix', status);
@@ -251,17 +252,92 @@ function directionsRequestCallback(result, status) {
   HANDLE GAS STATION SORTING
 */
 
+let trackDistance = 0, trackDuration = 0, trackPrice = 0;
+
 sortDistanceButton.addEventListener('click', () => {
-  sortByDist(gasStationObjectValues);
+  switch(trackDistance) {
+    case 0:
+      //document.getElementById("sortDistanceButton").style.backgroundColor = "#00FF00";
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Distance (Low to High)";
+      sortByDist(gasStationObjectValues, true);
+      trackDistance = 1;
+      trackPrice = 0;
+      trackDuration = 0;
+      break;
+    case 1:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Distance (High to Low)";
+      sortByDist(gasStationObjectValues, false);
+      trackDistance = 2;
+      trackPrice = 0;
+      trackDuration = 0;
+      break;
+    case 2:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Default";
+      sortByDuration(gasStationObjectValues, true); //DEFAULT
+      trackDistance = 0;
+      trackPrice = 0;
+      trackDuration = 0;
+      break;
+    default:
+      console.log("ERROR");
+  }
   renderGasStations();
 });
 
 sortDurationButton.addEventListener('click', () => {
-  sortByDuration(gasStationObjectValues);
+  switch(trackDuration) {
+    case 0:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Duration (Low to High)";
+      sortByDuration(gasStationObjectValues, true);
+      trackDuration = 1;
+      trackPrice = 0;
+      trackDistance = 0;
+      break;
+    case 1:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Duration (High to Low)";
+      sortByDuration(gasStationObjectValues, false);
+      trackDuration = 2;
+      trackPrice = 0;
+      trackDistance =0 ;
+      break;
+    case 2:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Default";
+      sortByDuration(gasStationObjectValues, true); //DEFAULT
+      trackDuration = 0;
+      trackPrice = 0;
+      trackDistance = 0;
+      break;
+    default:
+      console.log("ERROR");
+  }
   renderGasStations();
 });
 
 sortPriceButton.addEventListener('click', () => {
-  sortByPrice(gasStationObjectValues);
+  switch(trackPrice) {
+    case 0:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Price (Low to High)";
+      sortByPrice(gasStationObjectValues, true);
+      trackPrice = 1;
+      trackDistance = 0;
+      trackDuration = 0;
+      break;
+    case 1:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Price (High to Low)";
+      sortByPrice(gasStationObjectValues, false);
+      trackPrice = 2;
+      trackDistance = 0;
+      trackDuration = 0;
+      break;
+    case 2:
+      document.getElementById("sortByDisplay").innerHTML = "Sort By: Default";
+      sortByDuration(gasStationObjectValues, true); //DEFAULT
+      trackPrice = 0;
+      trackDistance = 0;
+      trackDuration = 0;
+      break;
+    default:
+      console.log("ERROR");
+  }
   renderGasStations();
 });
