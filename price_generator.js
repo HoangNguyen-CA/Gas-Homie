@@ -12,7 +12,7 @@ function priceGen(n) {
 
         // four types of gas, octane 87, 89, 91, 94
 
-        list[i][0] = (Math.random() * 30) + 90;
+        list[i][0] = Math.round(((Math.random() * 30) + 90) * 100) / 100;
         list[i][1] = list[i][0] + 5;
         list[i][2] = list[i][1] + 5;
         list[i][3] = list[i][2] + 5;
@@ -20,6 +20,8 @@ function priceGen(n) {
 
     return list;
 }
+
+// testing
 
 const exampleList = priceGen(5);
 
