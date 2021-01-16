@@ -32,3 +32,7 @@ function parseDistanceMatrix(response) {
   }
   return ansArr;
 }
+
+function handleError(name, status) {
+  alert(`${name} was not successful for the following reason: ${status}`);
+}

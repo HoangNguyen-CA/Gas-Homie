@@ -72,10 +72,7 @@ function initMap() {
       if (status == 'OK') {
         directionsRenderer.setDirections(result);
       } else {
-        alert(
-          'Directions service was not successful for the following reason: ' +
-            status
-        );
+        handleError('Directions Service', status);
       }
     }
   });
@@ -134,10 +131,7 @@ function nearbySearchCallback(results, status) {
           distanceMatrixCallback2
         );
       } else {
-        alert(
-          'distance matrix was not successful for the following reason: ' +
-            status
-        );
+        handleError('Distance Matrix', status);
       }
     }
 
@@ -164,16 +158,11 @@ function nearbySearchCallback(results, status) {
         console.log(distanceDictionary);
         renderGasStations(Object.values(distanceDictionary));
       } else {
-        alert(
-          'distance matrix was not successful for the following reason: ' +
-            status
-        );
+        handleError('Distance Matrix', status);
       }
     }
   } else {
-    alert(
-      'nearby search was not successful for the following reason: ' + status
-    );
+    handleError('Nearby Search', status);
   }
 }
 
@@ -187,6 +176,7 @@ function renderGasStations(distanceValues) {
     let address = item.address;
     let gasItem = document.createElement('div');
     gasItem.classList.add('gas__item');
+
     gasItem.innerHTML = `
     <h3 class="gas__item__title">${item.address}</h3>
     <p class="gas__item__label">
@@ -226,10 +216,7 @@ function addToRoute(address) {
     if (status == 'OK') {
       directionsRenderer.setDirections(result);
     } else {
-      alert(
-        'Directions service was not successful for the following reason: ' +
-          status
-      );
+      handleError('Directions Service', status);
     }
   });
 }
