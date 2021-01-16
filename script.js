@@ -9,6 +9,10 @@ let endInput = document.getElementById('endInput');
 let mainForm = document.getElementById('form');
 let gasDisplay = document.getElementById('gasDisplay');
 
+let sortDurationButton = document.getElementById('sortDurationButton');
+let sortDistanceButton = document.getElementById('sortDistanceButton');
+let sortPriceButton = document.getElementById('sortPriceButton');
+
 let startPlace;
 let endPlace;
 let gasItemsArray = [];
@@ -159,6 +163,7 @@ function nearbySearchCallback(results, status) {
 }
 
 function renderGasStations(distanceValues) {
+  console.log(distanceValues);
   let sortedValues = distanceValues.sort(
     (a, b) => a.totalDistance - b.totalDistance
   );
@@ -171,30 +176,45 @@ function renderGasStations(distanceValues) {
     let gasItem = document.createElement('div');
     gasItem.classList.add('gas__item');
 
-    gasItem.innerHTML = `
-    <h3 class="gas__item__title">${item.address}</h3>
-    <p class="gas__item__label">
-      total distance: ${convertDist(item.totalDistance)}
-      </p>
-      <p class="gas__item__label">
-      total duration: ${convertTime(item.totalDuration)}
-      </p>
-    `;
+    let gasItemTitle = createDOMElement(
+      'h3',
+      ['gas__item__title'],
+      item.address
+    );
 
-    let buttonItem = document.createElement('button');
-    buttonItem.classList.add('button');
-    buttonItem.classList.add('gas__item__button');
-    buttonItem.innerText = 'Add To Route';
+    let gasItemLabel1 = createDOMElement(
+      'p',
+      ['gas__item__label'],
+      `total distance: ${convertDist(item.totalDistance)}`
+    );
+
+    let gasItemLabel2 = createDOMElement(
+      'p',
+      ['gas__item__label'],
+      `total duration: ${convertTime(item.totalDuration)}`
+    );
+
+    let buttonItem = createDOMElement(
+      'button',
+      ['button', 'gas__item__button'],
+      'Add To Route'
+    );
+
+    elementAppendChildren(gasItem, [
+      gasItemTitle,
+      gasItemLabel1,
+      gasItemLabel2,
+      buttonItem,
+    ]);
+
+    gasItemsArray.push(gasItem);
+    gasDisplay.appendChild(gasItem);
 
     buttonItem.addEventListener('click', () => {
       clearGasItemsHighlight();
       gasItem.classList.add('gas__item--highlighted');
       addToRoute(address);
     });
-
-    gasItemsArray.push(gasItem);
-    gasItem.appendChild(buttonItem);
-    gasDisplay.appendChild(gasItem);
   }
 }
 
