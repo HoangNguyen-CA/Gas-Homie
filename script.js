@@ -133,7 +133,8 @@ function nearbySearchCallback(results, status) {
         let res = parseDistanceMatrix(results);
 
         let updatedDict = { ...distanceDictionary };
-        let prices = priceGen(Object.values(distanceDictionary).length);
+        let prices = priceGen(res.length);
+        console.log(prices);
 
         for (let i = 0; i < res.length; i++) {
           let item = res[i];
