@@ -72,7 +72,7 @@ function priceGen(n) {
   //Next, generate values around it
   var list = new Array(n);
   for (let i = 0; i < n; i++) {
-      list[i] = norm87 + Math.round(Math.random() * 6) - 3;
+    list[i] = norm87 + Math.round(Math.random() * 6) - 3;
   }
   return list;
 }
@@ -87,7 +87,7 @@ function createDOMElement(name, classList, innerText) {
   for (let i = 0; i < classList.length; i += 1) {
     domElement.classList.add(classList[i]);
   }
-  domElement.innerText = innerText;
+  domElement.innerText = '' + innerText;
 
   return domElement;
 }
@@ -99,27 +99,26 @@ function elementAppendChildren(element, children) {
 }
 
 // sorted distance, duration, and price in increasing order
-function sortByDist(objects){
-    objects.sort(compareDist)
+function sortByDist(objects) {
+  objects.sort(compareDist);
 }
 
-function compareDist(a, b){
-    return a.totalDistance - b.totalDistance;
+function compareDist(a, b) {
+  return a.totalDistance - b.totalDistance;
 }
 
-function sortByDuration(objects){
-    objects.sort(compareDuration)
+function sortByDuration(objects) {
+  objects.sort(compareDuration);
 }
 
-function compareDuration(a, b){
-    return a.totalDuration - b.totalDuration;
+function compareDuration(a, b) {
+  return a.totalDuration - b.totalDuration;
 }
 
-function sortByPrice(objects){
-    objects.sort(comparePrice)
+function sortByPrice(objects) {
+  objects.sort(comparePrice);
 }
 
-function comparePrice(a, b){
-    return a.price - b.price
+function comparePrice(a, b) {
+  return a.price - b.price;
 }
-

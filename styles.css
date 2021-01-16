@@ -8,6 +8,27 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+.button {
+  border-radius: 100px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.5em 1.2em;
+  outline: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.08s ease-out;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+  transform: translateY(-3px);
+}
+
+.button:active {
+  transform: translateY(-1px);
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
+}
+
 main {
   display: flex;
 }
@@ -58,7 +79,7 @@ main {
   margin-bottom: 0.7em;
   text-align: center;
   font-size: 1rem;
-  padding: 0.3em 0;
+  padding: 0.3em 0.4em;
   border-radius: 5px;
   border: 1px solid #a8a8a8;
   outline: none;
@@ -94,7 +115,7 @@ main {
   flex-direction: column;
   align-items: center;
 
-  padding: 1em 1.5em;
+  padding: 1em 0.3em;
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 
@@ -102,6 +123,7 @@ main {
   flex-grow: 1;
   background-color: #f7fbfc;
   text-align: center;
+  color: #222831;
 }
 
 .display__title {
@@ -137,44 +159,40 @@ main {
   flex-direction: column;
   text-align: center;
   align-items: center;
+
+  background-color: #eeeeee;
+  padding: 1em;
+  border-radius: 2px;
+  color: #222831;
+  margin: 0.4em 0.2em;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 }
 
 .gas__item--highlighted {
+  background-color: #222831;
+  color: #eeeeee;
 }
 
 .gas__item__title {
+  font-weight: 500;
+  margin-bottom: 0.2em;
 }
 
 .gas__item__label {
+  margin-bottom: 0.1em;
 }
 
 .gas__item__button {
+  margin-top: 0.5em;
+  background-color: #00adb5;
+  color: #eeeeee;
+  border: none;
+  font-size: 0.99rem;
 }
 
 .gas__notice {
   font-weight: 400;
   color: rgba(0, 0, 0, 0.8);
-}
-
-.button {
-  border-radius: 100px;
-  background-color: white;
-  border: 1px solid black;
-  padding: 0.5em 1.2em;
-  outline: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: 0.08s ease-out;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
-}
-
-.button:hover {
-  transform: translateY(-3px);
-}
-
-.button:active {
-  transform: translateY(-1px);
-  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.1);
 }
 
 .RobotoFont {
