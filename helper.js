@@ -56,6 +56,18 @@ function convertTime(seconds) {
     return time;
 }
 
+//given number of meters, produces the distance in terms  
+//of kilometers (rounded to 1 decimal place)
+function convertDist(meters) {
+    
+    var dist = "";
+    var km = 1000;
+    var kilometers = Math.round(meters/km * 10) / 10;
+    dist = dist.concat(kilometers.toString() + " km");
+    
+    return dist;
+}
+
 function handleError(name, status) {
   alert(`${name} was not successful for the following reason: ${status}`);
 }
