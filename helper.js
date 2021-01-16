@@ -3,6 +3,7 @@ function createMarker(place) {
     map,
     position: place.geometry.location,
   });
+
   google.maps.event.addListener(marker, 'click', () => {
     let infowindow = new google.maps.InfoWindow();
     infowindow.setContent(place.name);
@@ -31,4 +32,8 @@ function parseDistanceMatrix(response) {
     }
   }
   return ansArr;
+}
+
+function warn(status) {
+  alert('distance matrix was not successful for the following reason: ' + status);
 }

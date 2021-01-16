@@ -9,15 +9,11 @@ let endInput = document.getElementById('endInput');
 let mainForm = document.getElementById('form');
 let gasDisplay = document.getElementById('gasDisplay');
 
-let startPlace;
-let endPlace;
-let gasItemsArray = [];
-
 function initMap() {
-  let CanadaLocation = new google.maps.LatLng(56.1304, -106.3468);
+  let TorontoLocation = new google.maps.LatLng(43.6532, -79.3832);
   map = new google.maps.Map(document.getElementById('map'), {
-    center: CanadaLocation,
-    zoom: 4,
+    center: TorontoLocation,
+    zoom: 12,
   });
 
   // Init Services
@@ -72,10 +68,7 @@ function initMap() {
       if (status == 'OK') {
         directionsRenderer.setDirections(result);
       } else {
-        alert(
-          'Directions service was not successful for the following reason: ' +
-            status
-        );
+        warn(status);
       }
     }
   });
@@ -84,8 +77,7 @@ function initMap() {
 function nearbySearchCallback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(place);
+      createMarker(results[i]);
     }
 
     /*
@@ -100,6 +92,7 @@ function nearbySearchCallback(results, status) {
       destinations: transformedResults,
       travelMode: 'DRIVING',
     };
+
     // distance from each gas station to end
     let distanceMatrixReq2 = {
       origins: transformedResults,
@@ -134,10 +127,7 @@ function nearbySearchCallback(results, status) {
           distanceMatrixCallback2
         );
       } else {
-        alert(
-          'distance matrix was not successful for the following reason: ' +
-            status
-        );
+        warn(status);
       }
     }
 
@@ -161,19 +151,14 @@ function nearbySearchCallback(results, status) {
         }
         distanceDictionary = updatedDict;
 
-        console.log(distanceDictionary);
+        console.log(distanceDictionary); /*DEBUG*/
         renderGasStations(Object.values(distanceDictionary));
       } else {
-        alert(
-          'distance matrix was not successful for the following reason: ' +
-            status
-        );
+        warn(status);
       }
     }
   } else {
-    alert(
-      'nearby search was not successful for the following reason: ' + status
-    );
+    warn(status);
   }
 }
 
@@ -215,21 +200,20 @@ function renderGasStations(distanceValues) {
 }
 
 function addToRoute(address) {
-  console.log(address);
+  console.log(address); /*DEBUG*/
+
   let directionsRequest = {
     origin: startPlace.geometry.location,
     waypoints: [{ location: address, stopover: true }],
     destination: endPlace.geometry.location,
     travelMode: 'DRIVING',
   };
-  directionsService.route(directionsRequest, function (result, status) {
+
+  directionsService.route(directionsRequest, (result, status) => {
     if (status == 'OK') {
       directionsRenderer.setDirections(result);
     } else {
-      alert(
-        'Directions service was not successful for the following reason: ' +
-          status
-      );
+      warn(status);
     }
   });
 }
