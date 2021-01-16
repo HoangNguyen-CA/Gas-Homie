@@ -159,15 +159,22 @@ function nearbySearchCallback(results, status) {
 }
 
 function renderGasStations(distanceValues) {
-  let sorted = distanceValues.sort((a, b) => a.totalDistance - b.totalDistance);
+  let sortedValues = distanceValues.sort(
+    (a, b) => a.totalDistance - b.totalDistance
+  );
 
-  console.log(sorted);
   gasItemsArray = [];
 
-  for (item of sorted) {
+  for (item of sortedValues) {
     let address = item.address;
     let gasItem = document.createElement('div');
     gasItem.classList.add('gas__item');
+
+    let gasItemTitle = document.createElement('h3');
+    gasItemTitle.classList.add('gas__item__title');
+    gasItemTitle.innerText = item.address;
+    gasItem.appendChild(gasItemTitle);
+
 
     gasItem.innerHTML = `
     <h3 class="gas__item__title">${item.address}</h3>
@@ -190,11 +197,12 @@ function renderGasStations(distanceValues) {
       addToRoute(address);
     });
 
-    gasItemsArray.push(gasItem);
+     .push(gasItem);
     gasItem.appendChild(buttonItem);
     gasDisplay.appendChild(gasItem);
   }
 }
+
 
 function addToRoute(address) {
   console.log(address);
