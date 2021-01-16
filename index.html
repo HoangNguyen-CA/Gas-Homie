@@ -13,8 +13,19 @@
   </head>
   <body>
     <main>
+      <div class="sidebar">
+        <form id="form">
+          <label for="startInput">Starting Location:</label>
+          <input type="text" id="startInput" />
+          <label for="endInput">Destination: </label>
+          <input type="text" id="endInput" />
+          <button type="submit">Find Route</button>
+        </form>
+        <div id="gasDisplay"></div>
+      </div>
       <div id="map"></div>
     </main>
+    <script src="./helper.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
