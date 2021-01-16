@@ -63,14 +63,6 @@ function initMap() {
     };
 
     directionsService.route(directionsRequest, directionsRequestCallback);
-
-    function directionsRequestCallback(result, status) {
-      if (status == 'OK') {
-        directionsRenderer.setDirections(result);
-      } else {
-        warn(status);
-      }
-    }
   });
 }
 
@@ -127,7 +119,7 @@ function nearbySearchCallback(results, status) {
           distanceMatrixCallback2
         );
       } else {
-        warn(status);
+        handleError('Distance Matrix', status);
       }
     }
 
@@ -154,11 +146,11 @@ function nearbySearchCallback(results, status) {
         console.log(distanceDictionary); /*DEBUG*/
         renderGasStations(Object.values(distanceDictionary));
       } else {
-        warn(status);
+        handleError('Distance Matrix', status);
       }
     }
   } else {
-    warn(status);
+    handleError('Nearby Search', status);
   }
 }
 
@@ -172,6 +164,7 @@ function renderGasStations(distanceValues) {
     let address = item.address;
     let gasItem = document.createElement('div');
     gasItem.classList.add('gas__item');
+
     gasItem.innerHTML = `
     <h3 class="gas__item__title">${item.address}</h3>
     <p class="gas__item__label">
@@ -208,18 +201,19 @@ function addToRoute(address) {
     destination: endPlace.geometry.location,
     travelMode: 'DRIVING',
   };
-
-  directionsService.route(directionsRequest, (result, status) => {
-    if (status == 'OK') {
-      directionsRenderer.setDirections(result);
-    } else {
-      warn(status);
-    }
-  });
+  directionsService.route(directionsRequest, directionsRequestCallback);
 }
 
 function clearGasItemsHighlight() {
   for (item of gasItemsArray) {
     item.classList.remove('gas__item--highlighted');
+  }
+}
+
+function directionsRequestCallback(result, status) {
+  if (status == 'OK') {
+    directionsRenderer.setDirections(result);
+  } else {
+    handleError('Directions Service', status);
   }
 }

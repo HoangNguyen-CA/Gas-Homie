@@ -34,6 +34,6 @@ function parseDistanceMatrix(response) {
   return ansArr;
 }
 
-function warn(status) {
-  alert('distance matrix was not successful for the following reason: ' + status);
+function handleError(name, status) {
+  alert(`${name} was not successful for the following reason: ${status}`);
 }
