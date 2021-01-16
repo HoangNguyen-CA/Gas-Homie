@@ -67,14 +67,6 @@ function initMap() {
     };
 
     directionsService.route(directionsRequest, directionsRequestCallback);
-
-    function directionsRequestCallback(result, status) {
-      if (status == 'OK') {
-        directionsRenderer.setDirections(result);
-      } else {
-        handleError('Directions Service', status);
-      }
-    }
   });
 }
 
@@ -212,17 +204,19 @@ function addToRoute(address) {
     destination: endPlace.geometry.location,
     travelMode: 'DRIVING',
   };
-  directionsService.route(directionsRequest, function (result, status) {
-    if (status == 'OK') {
-      directionsRenderer.setDirections(result);
-    } else {
-      handleError('Directions Service', status);
-    }
-  });
+  directionsService.route(directionsRequest, directionsRequestCallback);
 }
 
 function clearGasItemsHighlight() {
   for (item of gasItemsArray) {
     item.classList.remove('gas__item--highlighted');
+  }
+}
+
+function directionsRequestCallback(result, status) {
+  if (status == 'OK') {
+    directionsRenderer.setDirections(result);
+  } else {
+    handleError('Directions Service', status);
   }
 }
