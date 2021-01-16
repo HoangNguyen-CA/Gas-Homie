@@ -34,6 +34,28 @@ function parseDistanceMatrix(response) {
   return ansArr;
 }
 
+//given number of seconds, produces the number of hours 
+//and minutes (rounded to the nearest minute)
+function convertTime(seconds) {
+    
+    var time = "";
+    var hours;
+    var mins;
+    var hour = 3600;
+    var min = 60;
+    if (seconds > hour) {
+      hours = Math.floor(seconds/hour);
+      time = time.concat(hours.toString() + " hour ");
+      seconds = seconds - hours * hour;
+    }  
+    
+    mins = Math.round(seconds/min);
+    time = time.concat(mins.toString() + " min");
+    
+    
+    return time;
+}
+
 function handleError(name, status) {
   alert(`${name} was not successful for the following reason: ${status}`);
 }
