@@ -65,6 +65,28 @@ function convertDist(meters) {
   return dist;
 }
 
+//Generate gas prices
+function priceGen(n) {
+  //First, generate the "norm" of today's price
+  let norm87 = Math.round(Math.random() * 30) + 90 - 0.1;
+  let norm89 = norm87 + Math.round(Math.random() * 3) + 5;
+  let norm91 = norm89 + Math.round(Math.random() * 3) + 5;
+  let norm94 = norm91 + Math.round(Math.random() * 3) + 5;
+  //Next, generate values around it
+  var list = new Array(n);
+  for (let i = 0; i < list.length; i++) {
+      list[i] = new Array(4);
+  }
+  for (let i = 0; i < n; i++) {
+      // four types of gas, octane 87, 89, 91, 94
+      list[i][0] = norm87 + Math.round(Math.random() * 6) - 3;
+      list[i][1] = norm89 + Math.round(Math.random() * 6) - 3;
+      list[i][2] = norm91 + Math.round(Math.random() * 6) - 3;
+      list[i][3] = norm94 + Math.round(Math.random() * 6) - 3;
+  }
+  return list;
+}
+
 function handleError(name, status) {
   alert(`${name} was not successful for the following reason: ${status}`);
 }

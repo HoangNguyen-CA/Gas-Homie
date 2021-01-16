@@ -137,8 +137,10 @@ function nearbySearchCallback(results, status) {
         console.log(res);
 
         let updatedDict = { ...distanceDictionary };
+        let prices = priceGen(Object.values(distanceDictionary).length);
 
-        for (item of res) {
+        for (let i = 0; i < res.length; i++) {
+          let item = res[i];
           prevDistance = distanceDictionary[item.from].distanceTo;
           prevDuration = distanceDictionary[item.from].durationTo;
           updatedDict[item.from] = {
@@ -147,6 +149,10 @@ function nearbySearchCallback(results, status) {
             durationFrom: item.duration,
             totalDistance: item.distance + prevDistance,
             totalDuration: item.duration + prevDuration,
+            price87: prices[i][0],
+            price89: prices[i][1],
+            price91: prices[i][2],
+            price94: prices[i][3],
           };
         }
         distanceDictionary = updatedDict;
