@@ -98,3 +98,29 @@ function elementAppendChildren(element, children) {
     element.appendChild(children[i]);
   }
 }
+
+// sorted distance, duration, and price in increasing order
+function sortByDist(objects){
+    objects.sort(compareDist)
+}
+
+function compareDist(a, b){
+    return a.totalDistance - b.totalDistance;
+}
+
+function sortByDuration(objects){
+    objects.sort(compareDuration)
+}
+
+function compareDuration(a, b){
+    return a.totalDuration - b.totalDuration;
+}
+
+function sortByPrice(objects){
+    objects.sort(comparePrice)
+}
+
+function comparePrice(a, b){
+    return a.price - b.price
+}
+
