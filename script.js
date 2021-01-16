@@ -16,7 +16,7 @@ let sortPriceButton = document.getElementById('sortPriceButton');
 let startPlace;
 let endPlace;
 let gasStationObjectValues = [];
-let gasItemsArray = [];
+let gasDomElementsArray = [];
 
 function initMap() {
   let CanadaLocation = new google.maps.LatLng(56.1304, -106.3468);
@@ -107,7 +107,6 @@ function nearbySearchCallback(results, status) {
     function distanceMatrixCallback1(results, status) {
       if (status == 'OK') {
         let res = parseDistanceMatrix(results);
-        console.log(res);
 
         // add response to distanceDictionary
         for (item of res) {
@@ -130,7 +129,6 @@ function nearbySearchCallback(results, status) {
     function distanceMatrixCallback2(results, status) {
       if (status == 'OK') {
         let res = parseDistanceMatrix(results);
-        console.log(res);
 
         let updatedDict = { ...distanceDictionary };
         let prices = priceGen(Object.values(distanceDictionary).length);
@@ -162,20 +160,14 @@ function nearbySearchCallback(results, status) {
 }
 
 function renderGasStations() {
-  gasItemsArray = [];
+  gasDomElementsArray = [];
   gasDisplay.textContent = '';
 
-  console.log(gasStationObjectValues, 'WOW');
   for (item of gasStationObjectValues) {
     let address = item.address;
-    let gasItem = document.createElement('div');
-    gasItem.classList.add('gas__item');
+    let gasItem = createDOMElement('div', ['gas__item'], '');
 
-    let gasItemTitle = createDOMElement(
-      'h3',
-      ['gas__item__title'],
-      item.address
-    );
+    let gasItemTitle = createDOMElement('h3', ['gas__item__title'], address);
 
     let gasItemLabel1 = createDOMElement(
       'p',
@@ -201,6 +193,12 @@ function renderGasStations() {
       'Add To Route'
     );
 
+    buttonItem.addEventListener('click', () => {
+      clearGasItemsHighlight();
+      gasItem.classList.add('gas__item--highlighted');
+      addToRoute(address);
+    });
+
     elementAppendChildren(gasItem, [
       gasItemTitle,
       gasItemLabel1,
@@ -208,20 +206,12 @@ function renderGasStations() {
       gasItemLabel3,
       buttonItem,
     ]);
-
-    gasItemsArray.push(gasItem);
     gasDisplay.appendChild(gasItem);
-
-    buttonItem.addEventListener('click', () => {
-      clearGasItemsHighlight();
-      gasItem.classList.add('gas__item--highlighted');
-      addToRoute(address);
-    });
+    gasDomElementsArray.push(gasItem);
   }
 }
 
 function addToRoute(address) {
-  console.log(address);
   let directionsRequest = {
     origin: startPlace.geometry.location,
     waypoints: [{ location: address, stopover: true }],
@@ -232,7 +222,7 @@ function addToRoute(address) {
 }
 
 function clearGasItemsHighlight() {
-  for (item of gasItemsArray) {
+  for (item of gasDomElementsArray) {
     item.classList.remove('gas__item--highlighted');
   }
 }
@@ -244,6 +234,10 @@ function directionsRequestCallback(result, status) {
     handleError('Directions Service', status);
   }
 }
+
+/*
+  HANDLE GAS STATION SORTING
+*/
 
 sortDistanceButton.addEventListener('click', () => {
   sortByDist(gasStationObjectValues);
