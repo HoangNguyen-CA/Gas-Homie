@@ -72,7 +72,6 @@ function priceGen(n) {
   //Next, generate values around it
   var list = new Array(n);
   for (let i = 0; i < n; i++) {
-      // four types of gas, octane 87, 89, 91, 94
       list[i] = norm87 + Math.round(Math.random() * 6) - 3;
   }
   return list;
