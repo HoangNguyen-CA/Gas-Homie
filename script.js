@@ -15,7 +15,8 @@ let sortPriceButton = document.getElementById('sortPriceButton');
 
 let startPlace;
 let endPlace;
-let gasItemsArray = [];
+let gasStationObjectValues = [];
+let gasDomElementsArray = [];
 
 function initMap() {
   let CanadaLocation = new google.maps.LatLng(56.1304, -106.3468);
@@ -76,11 +77,6 @@ function initMap() {
 
 function nearbySearchCallback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(place);
-    }
-
     /*
       GETTING DISTANCES USING DIRECTIONS MATRIX
     */
@@ -111,7 +107,6 @@ function nearbySearchCallback(results, status) {
     function distanceMatrixCallback1(results, status) {
       if (status == 'OK') {
         let res = parseDistanceMatrix(results);
-        console.log(res);
 
         // add response to distanceDictionary
         for (item of res) {
@@ -134,7 +129,6 @@ function nearbySearchCallback(results, status) {
     function distanceMatrixCallback2(results, status) {
       if (status == 'OK') {
         let res = parseDistanceMatrix(results);
-        console.log(res);
 
         let updatedDict = { ...distanceDictionary };
         let prices = priceGen(Object.values(distanceDictionary).length);
@@ -154,8 +148,8 @@ function nearbySearchCallback(results, status) {
         }
         distanceDictionary = updatedDict;
 
-        console.log(distanceDictionary);
-        renderGasStations(Object.values(distanceDictionary));
+        gasStationObjectValues = Object.values(distanceDictionary);
+        renderGasStations();
       } else {
         handleError('Distance Matrix', status);
       }
@@ -165,25 +159,15 @@ function nearbySearchCallback(results, status) {
   }
 }
 
-function renderGasStations(distanceValues) {
-  console.log(distanceValues);
-  let sortedValues = distanceValues.sort(
-    (a, b) => a.totalDistance - b.totalDistance
-  );
-
-  gasItemsArray = [];
+function renderGasStations() {
+  gasDomElementsArray = [];
   gasDisplay.textContent = '';
 
-  for (item of sortedValues) {
+  for (item of gasStationObjectValues) {
     let address = item.address;
-    let gasItem = document.createElement('div');
-    gasItem.classList.add('gas__item');
+    let gasItem = createDOMElement('div', ['gas__item'], '');
 
-    let gasItemTitle = createDOMElement(
-      'h3',
-      ['gas__item__title'],
-      item.address
-    );
+    let gasItemTitle = createDOMElement('h3', ['gas__item__title'], address);
 
     let gasItemLabel1 = createDOMElement(
       'p',
@@ -197,32 +181,37 @@ function renderGasStations(distanceValues) {
       `total duration: ${convertTime(item.totalDuration)}`
     );
 
+    let gasItemLabel3 = createDOMElement(
+      'p',
+      ['gas__item__label'],
+      `gas price: ${item.price}`
+    );
+
     let buttonItem = createDOMElement(
       'button',
       ['button', 'gas__item__button'],
       'Add To Route'
     );
 
-    elementAppendChildren(gasItem, [
-      gasItemTitle,
-      gasItemLabel1,
-      gasItemLabel2,
-      buttonItem,
-    ]);
-
-    gasItemsArray.push(gasItem);
-    gasDisplay.appendChild(gasItem);
-
     buttonItem.addEventListener('click', () => {
       clearGasItemsHighlight();
       gasItem.classList.add('gas__item--highlighted');
       addToRoute(address);
     });
+
+    elementAppendChildren(gasItem, [
+      gasItemTitle,
+      gasItemLabel1,
+      gasItemLabel2,
+      gasItemLabel3,
+      buttonItem,
+    ]);
+    gasDisplay.appendChild(gasItem);
+    gasDomElementsArray.push(gasItem);
   }
 }
 
 function addToRoute(address) {
-  console.log(address);
   let directionsRequest = {
     origin: startPlace.geometry.location,
     waypoints: [{ location: address, stopover: true }],
@@ -233,7 +222,7 @@ function addToRoute(address) {
 }
 
 function clearGasItemsHighlight() {
-  for (item of gasItemsArray) {
+  for (item of gasDomElementsArray) {
     item.classList.remove('gas__item--highlighted');
   }
 }
@@ -245,3 +234,22 @@ function directionsRequestCallback(result, status) {
     handleError('Directions Service', status);
   }
 }
+
+/*
+  HANDLE GAS STATION SORTING
+*/
+
+sortDistanceButton.addEventListener('click', () => {
+  sortByDist(gasStationObjectValues);
+  renderGasStations();
+});
+
+sortDurationButton.addEventListener('click', () => {
+  sortByDuration(gasStationObjectValues);
+  renderGasStations();
+});
+
+sortPriceButton.addEventListener('click', () => {
+  sortByPrice(gasStationObjectValues);
+  renderGasStations();
+});

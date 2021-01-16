@@ -12,13 +12,14 @@
     ></script>
   </head>
 
-  <link 
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Roboto"
-  >
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto"
+  />
   <body>
     <main>
       <div class="sidebar">
+        <h1>Gas Homie</h1>
         <form id="form">
           <label for="startInput">Starting Location:</label>
           <input type="text" id="startInput" />
@@ -26,13 +27,13 @@
           <input type="text" id="endInput" />
           <button type="submit">Find Route</button>
         </form>
-        <div class="display"
-          <h2>Gas Stations</h2>
-          <p>Sort By:</p>
-          <div>
-            <button id="sortDurationButton">Duration</button>
-            <button id="sortDistanceButton">Distance</button>
-            <button id="sortPriceButton">Gas Price</button>
+        <div class="display">
+          <h2 class="display__title">Nearby Gas Stations</h2>
+          <p class="display__label">Sort By:</p>
+          <div class="display__button-container">
+            <button id="sortDurationButton" class="button">Duration</button>
+            <button id="sortDistanceButton" class="button">Distance</button>
+            <button id="sortPriceButton" class="button">Gas Price</button>
           </div>
           <div id="gasDisplay"></div>
         </div>

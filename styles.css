@@ -24,7 +24,7 @@ main {
   padding: 0.3em;
   overflow: auto;
   height: 100vh;
-  width: 20rem;
+  width: 30em;
 }
 
 /* Starting location and Destination */
@@ -58,6 +58,9 @@ main {
   flex-direction: column;
   text-align: center;
   align-items: center;
+}
+
+.gas__item--highlighted {
 }
 
 .gas__item__title {
@@ -130,3 +133,4 @@ main {
     background: black;
     color: #f0f0f0;
   }*/
+  
