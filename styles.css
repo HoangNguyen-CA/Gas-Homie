@@ -45,7 +45,7 @@ main {
   padding: 0.3em;
   overflow: auto;
   height: 100vh;
-  width: 30em;
+  min-width: 30em;
   background-color: #ffffff;
 }
 
@@ -111,16 +111,13 @@ main {
 
 .pac-container {
   background-color: rgb(255, 255, 255);
-  position: absolute!important;
+  position: absolute !important;
   z-index: 1000;
   border-radius: 2px;
-  border-top: 1px solid #be2525;
+  border-top: 1px solid #00adb5;
   font-family: Arial, sans-serif;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .pac-item {
@@ -133,22 +130,16 @@ main {
   line-height: 30px;
   text-align: left;
   border-top: 1px solid #e6e6e6;
-  font-size: 11px;
-  color: rgb(156, 156, 156)
+  font-size: 0.8rem;
+  color: rgb(156, 156, 156);
 }
 .pac-item:hover {
-  background-color: #dbdbdb
+  background-color: #dbdbdb;
 }
 .pac-item-query {
-  font-size: 14px;
+  font-size: 0.9rem;
   padding-right: 3px;
   color: #00adb5;
-}
-.pac-icon {
-  transform: translate(2px, 2px);
-  display: inline-block;
-  background-image: url(https://cdn.iconscout.com/icon/free/png-256/right-arrow-1438234-1216195.png);
-  background-size: 20px
 }
 
 /* Station names */
@@ -237,44 +228,9 @@ main {
   color: rgba(0, 0, 0, 0.8);
 }
 
-.RobotoFont {
-  font-family: 'Roboto', serif;
-  color: blue;
-  font-weight: bold;
+@media only screen and (max-width: 700px) {
+  main {
+    flex-direction: column;
+    width: 100%;
+  }
 }
-
-/*body {
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: flex;
-  
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #f0f0f0;
-    color: red;
-    transition: all 300ms ease;
-  }
-  
-  div {
-    text-align: center;
-    border: 4px solid rgb(0, 0, 0);
-    padding: 16px;
-    box-shadow: 8px 8px rgb(0, 0, 0);
-    border-radius: 16px;
-  }
-  
-  img {
-    max-width: 100px;
-    border-radius: 50%;
-  }
-  
-  a {
-    text-decoration: none;
-    color: blue;
-    font-weight: bold;
-  }
-  
-  .dark {
-    background: black;
-    color: #f0f0f0;
-  }*/

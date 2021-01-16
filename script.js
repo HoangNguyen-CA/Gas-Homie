@@ -83,6 +83,8 @@ function nearbySearchCallback(results, status) {
       GETTING DISTANCES USING DIRECTIONS MATRIX
     */
 
+    console.log(results);
+
     transformedResults = results.map((res) => res.geometry.location);
 
     // distance from start to each gas station
