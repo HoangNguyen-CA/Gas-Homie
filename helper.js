@@ -71,3 +71,16 @@ function convertDist(meters) {
 function handleError(name, status) {
   alert(`${name} was not successful for the following reason: ${status}`);
 }
+
+function createDOMElement(name, classList, innerText) {
+
+  let domElement = document.createElement(name);
+
+  for (let i = 0; i < classList.length; i += 1) {
+    domElement.classList.add(classList[i]);
+  }
+  domElement.innerText = innerText;
+
+  return domElement;
+
+}
