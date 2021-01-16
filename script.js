@@ -7,9 +7,11 @@ let directionsRenderer;
 let startInput = document.getElementById('startInput');
 let endInput = document.getElementById('endInput');
 let mainForm = document.getElementById('form');
+let gasDisplay = document.getElementById('gasDisplay');
 
 let startPlace;
 let endPlace;
+let gasItemsArray = [];
 
 function initMap() {
   let CanadaLocation = new google.maps.LatLng(56.1304, -106.3468);
@@ -160,7 +162,7 @@ function nearbySearchCallback(results, status) {
         distanceDictionary = updatedDict;
 
         console.log(distanceDictionary);
-        //renderGasStations(Object.values(distanceDictionary));
+        renderGasStations(Object.values(distanceDictionary));
       } else {
         alert(
           'distance matrix was not successful for the following reason: ' +
@@ -172,5 +174,68 @@ function nearbySearchCallback(results, status) {
     alert(
       'nearby search was not successful for the following reason: ' + status
     );
+  }
+}
+
+function renderGasStations(distanceValues) {
+  let sorted = distanceValues.sort((a, b) => a.totalDistance - b.totalDistance);
+
+  console.log(sorted);
+  gasItemsArray = [];
+
+  for (item of sorted) {
+    let address = item.address;
+    let gasItem = document.createElement('div');
+    gasItem.classList.add('gas__item');
+    gasItem.innerHTML = `
+    <h3 class="gas__item__title">${item.address}</h3>
+    <p class="gas__item__label">
+      total distance = ${(item.totalDistance / 1000).toFixed(1)} km
+      </p>
+      <p class="gas__item__label">
+      total duration = ${(item.totalDuration / 60).toFixed(1)} minutes
+      </p>
+    `;
+
+    let buttonItem = document.createElement('button');
+    buttonItem.classList.add('button');
+    buttonItem.classList.add('gas__item__button');
+    buttonItem.innerText = 'Add To Route';
+
+    buttonItem.addEventListener('click', () => {
+      clearGasItemsHighlight();
+      gasItem.classList.add('gas__item--highlighted');
+      addToRoute(address);
+    });
+
+    gasItemsArray.push(gasItem);
+    gasItem.appendChild(buttonItem);
+    gasDisplay.appendChild(gasItem);
+  }
+}
+
+function addToRoute(address) {
+  console.log(address);
+  let directionsRequest = {
+    origin: startPlace.geometry.location,
+    waypoints: [{ location: address, stopover: true }],
+    destination: endPlace.geometry.location,
+    travelMode: 'DRIVING',
+  };
+  directionsService.route(directionsRequest, function (result, status) {
+    if (status == 'OK') {
+      directionsRenderer.setDirections(result);
+    } else {
+      alert(
+        'Directions service was not successful for the following reason: ' +
+          status
+      );
+    }
+  });
+}
+
+function clearGasItemsHighlight() {
+  for (item of gasItemsArray) {
+    item.classList.remove('gas__item--highlighted');
   }
 }
