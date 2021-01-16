@@ -9,15 +9,11 @@ let endInput = document.getElementById('endInput');
 let mainForm = document.getElementById('form');
 let gasDisplay = document.getElementById('gasDisplay');
 
-let startPlace;
-let endPlace;
-let gasItemsArray = [];
-
 function initMap() {
-  let CanadaLocation = new google.maps.LatLng(56.1304, -106.3468);
+  let TorontoLocation = new google.maps.LatLng(43.6532, -79.3832);
   map = new google.maps.Map(document.getElementById('map'), {
-    center: CanadaLocation,
-    zoom: 4,
+    center: TorontoLocation,
+    zoom: 12,
   });
 
   // Init Services
@@ -73,8 +69,7 @@ function initMap() {
 function nearbySearchCallback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(place);
+      createMarker(results[i]);
     }
 
     /*
@@ -89,6 +84,7 @@ function nearbySearchCallback(results, status) {
       destinations: transformedResults,
       travelMode: 'DRIVING',
     };
+
     // distance from each gas station to end
     let distanceMatrixReq2 = {
       origins: transformedResults,
@@ -147,7 +143,7 @@ function nearbySearchCallback(results, status) {
         }
         distanceDictionary = updatedDict;
 
-        console.log(distanceDictionary);
+        console.log(distanceDictionary); /*DEBUG*/
         renderGasStations(Object.values(distanceDictionary));
       } else {
         handleError('Distance Matrix', status);
@@ -205,7 +201,8 @@ function renderGasStations(distanceValues) {
 
 
 function addToRoute(address) {
-  console.log(address);
+  console.log(address); /*DEBUG*/
+
   let directionsRequest = {
     origin: startPlace.geometry.location,
     waypoints: [{ location: address, stopover: true }],
