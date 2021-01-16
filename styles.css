@@ -9,31 +9,13 @@ html {
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+main {
+  display: flex;
+}
+
 #map {
   width: 100%;
   height: 100vh;
-}
-
-#form {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  padding: 0.5em;
-}
-
-#gasDisplay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-main {
-  display: flex;
 }
 
 .sidebar {
@@ -44,4 +26,57 @@ main {
   overflow: auto;
   height: 100vh;
   width: 20rem;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 0.5em;
+}
+
+#form input {
+  margin-bottom: 0.7em;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#gasDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gas__item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.gas__item__title {
+}
+
+.gas__item__label {
+}
+
+.gas__item__button {
+}
+
+.button {
+  border-radius: 100px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.5em 1.2em;
+  outline: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  transform: translateY(-2px);
 }
