@@ -27,22 +27,25 @@ main {
   width: 20rem;
 }
 
+/* Starting location and Destination */
 #form {
   display: flex;
   flex-direction: column;
   border: 1px solid black;
-  padding: 0.5em;
+  padding: 0.5em; 
 }
 
 #form input {
   margin-bottom: 0.7em;
 }
 
+/* Station names */
 .display {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 
 #gasDisplay {
   display: flex;
@@ -66,6 +69,7 @@ main {
 .gas__item__button {
 }
 
+/* Add to Route */
 .button {
   border-radius: 100px;
   background-color: white;
@@ -74,14 +78,55 @@ main {
   outline: none;
   cursor: pointer;
   text-transform: uppercase;
+  border-color: #f44336;
+  color: red
 }
 
 .button:hover {
   transform: translateY(-2px);
+  transition: all 150ms ease;
 }
 
-/*.RobotoFont {
-  font-family: 'Times New Roman', serif;
+.RobotoFont {
+  font-family: 'Roboto', serif;
   color: blue;
   font-weight: bold;
+  }
+
+
+
+  /*body {
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+  
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f0f0f0;
+    color: red;
+    transition: all 300ms ease;
+  }
+  
+  div {
+    text-align: center;
+    border: 4px solid rgb(0, 0, 0);
+    padding: 16px;
+    box-shadow: 8px 8px rgb(0, 0, 0);
+    border-radius: 16px;
+  }
+  
+  img {
+    max-width: 100px;
+    border-radius: 50%;
+  }
+  
+  a {
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+  }
+  
+  .dark {
+    background: black;
+    color: #f0f0f0;
   }*/
