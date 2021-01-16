@@ -15,6 +15,7 @@ let sortPriceButton = document.getElementById('sortPriceButton');
 
 let startPlace;
 let endPlace;
+let gasStationObjectValues = [];
 let gasItemsArray = [];
 
 function initMap() {
@@ -76,11 +77,6 @@ function initMap() {
 
 function nearbySearchCallback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(place);
-    }
-
     /*
       GETTING DISTANCES USING DIRECTIONS MATRIX
     */
@@ -154,8 +150,8 @@ function nearbySearchCallback(results, status) {
         }
         distanceDictionary = updatedDict;
 
-        console.log(distanceDictionary);
-        renderGasStations(Object.values(distanceDictionary));
+        gasStationObjectValues = Object.values(distanceDictionary);
+        renderGasStations();
       } else {
         handleError('Distance Matrix', status);
       }
@@ -165,16 +161,12 @@ function nearbySearchCallback(results, status) {
   }
 }
 
-function renderGasStations(distanceValues) {
-  console.log(distanceValues);
-  let sortedValues = distanceValues.sort(
-    (a, b) => a.totalDistance - b.totalDistance
-  );
-
+function renderGasStations() {
   gasItemsArray = [];
   gasDisplay.textContent = '';
 
-  for (item of sortedValues) {
+  console.log(gasStationObjectValues, 'WOW');
+  for (item of gasStationObjectValues) {
     let address = item.address;
     let gasItem = document.createElement('div');
     gasItem.classList.add('gas__item');
@@ -197,6 +189,12 @@ function renderGasStations(distanceValues) {
       `total duration: ${convertTime(item.totalDuration)}`
     );
 
+    let gasItemLabel3 = createDOMElement(
+      'p',
+      ['gas__item__label'],
+      `gas price: ${item.price}`
+    );
+
     let buttonItem = createDOMElement(
       'button',
       ['button', 'gas__item__button'],
@@ -207,6 +205,7 @@ function renderGasStations(distanceValues) {
       gasItemTitle,
       gasItemLabel1,
       gasItemLabel2,
+      gasItemLabel3,
       buttonItem,
     ]);
 
@@ -245,3 +244,18 @@ function directionsRequestCallback(result, status) {
     handleError('Directions Service', status);
   }
 }
+
+sortDistanceButton.addEventListener('click', () => {
+  sortByDist(gasStationObjectValues);
+  renderGasStations();
+});
+
+sortDurationButton.addEventListener('click', () => {
+  sortByDuration(gasStationObjectValues);
+  renderGasStations();
+});
+
+sortPriceButton.addEventListener('click', () => {
+  sortByPrice(gasStationObjectValues);
+  renderGasStations();
+});
