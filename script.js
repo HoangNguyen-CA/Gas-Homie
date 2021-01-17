@@ -119,7 +119,6 @@ function nearbySearchCallback(results, status) {
     //key is address of gas station
 
     function distanceMatrixCallback1(results, status) {
-      console.log(results);
       if (status == 'OK') {
         let res = parseDistanceMatrix(results);
 
