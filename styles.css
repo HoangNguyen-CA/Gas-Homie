@@ -271,4 +271,12 @@ main {
     flex-direction: column;
     width: 100%;
   }
+
+  #form {
+    max-width: 25rem;
+  }
+
+  .display {
+    max-width: 25rem;
+  }
 }
