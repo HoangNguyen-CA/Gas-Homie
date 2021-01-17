@@ -309,7 +309,7 @@ sortDurationButton.addEventListener('click', () => {
       sortByDuration(gasStationObjectValues, false);
       trackDuration = 2;
       trackPrice = 0;
-      trackDistance =0 ;
+      trackDistance = 0;
       break;
     case 2:
       document.getElementById("sortByDisplay").innerHTML = "Sort By: Default";
