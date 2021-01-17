@@ -74,6 +74,14 @@ main {
   overflow: hidden;
 }
 
+.logo {
+  width: 85%;
+  height: 85%;
+  align-self: center;
+  margin-left: -1.25em;
+  margin-bottom: 0.75em;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
