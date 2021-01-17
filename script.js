@@ -25,8 +25,6 @@ function initMap() {
     zoom: 4,
   });
 
-  renderGasStations();
-
   // Init Services
   directionsService = new google.maps.DirectionsService();
   distanceMatrixService = new google.maps.DistanceMatrixService();
@@ -51,29 +49,34 @@ function initMap() {
 
   mainForm.addEventListener('submit', (event) => {
     event.preventDefault();
-
     startPlace = startAutocomplete.getPlace();
     endPlace = endAutocomplete.getPlace();
 
-    var searchRequest = {
-      location: startPlace.geometry.location,
-      radius: '5000',
-      query: '',
-      type: 'gas_station',
-    };
+    if (startPlace == undefined || endPlace == undefined || startInput.value == "" || endInput.value == "") {
+      document.getElementById("warnText").className = "showWarning";
+    } else {
+      document.getElementById("warnText").className = "hideWarning";
 
-    placeService.nearbySearch(searchRequest, nearbySearchCallback);
+      var searchRequest = {
+        location: startPlace.geometry.location,
+        radius: '5000',
+        query: '',
+        type: 'gas_station',
+      };
 
-    /*
-      Directions Request
-    */
-    let directionsRequest = {
-      origin: startPlace.geometry.location,
-      destination: endPlace.geometry.location,
-      travelMode: 'DRIVING',
-    };
+      placeService.nearbySearch(searchRequest, nearbySearchCallback);
 
-    directionsService.route(directionsRequest, directionsRequestCallback);
+      /*
+        Directions Request
+      */
+      let directionsRequest = {
+        origin: startPlace.geometry.location,
+        destination: endPlace.geometry.location,
+        travelMode: 'DRIVING',
+      };
+
+      directionsService.route(directionsRequest, directionsRequestCallback);
+    }
   });
 }
 
@@ -82,8 +85,6 @@ function nearbySearchCallback(results, status) {
     /*
       GETTING DISTANCES USING DIRECTIONS MATRIX
     */
-
-    console.log(results);
 
     transformedResults = results.map((res) => res.geometry.location);
 
@@ -136,7 +137,6 @@ function nearbySearchCallback(results, status) {
 
         let updatedDict = { ...distanceDictionary };
         let prices = priceGen(res.length);
-        console.log(prices);
 
         for (let i = 0; i < res.length; i++) {
           let item = res[i];

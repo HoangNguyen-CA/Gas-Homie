@@ -8,6 +8,16 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+.hideWarning {
+  display: none;
+}
+
+.showWarning {
+  transform: translate(0px, 10px);
+  display: block;
+  color: #e74e2f;
+}
+
 .button {
   border-radius: 100px;
   background-color: white;
