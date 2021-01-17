@@ -5,27 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL9BwLZrhcv_7aOooYeG7gqlhPFhdyyw0&callback=initMap&libraries=places&v=weekly"
       defer
     ></script>
   </head>
-
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Roboto"
-  />
   <body>
     <main>
       <div class="sidebar">
         <form id="form">
           <h1 class="sidebar__title">Petrol Peer</h1>
-
           <label for="startInput">Starting Location:</label>
-          <input type="text" id="startInput" placeholder="" />
+          <input
+            type="text"
+            id="startInput"
+            placeholder=""
+            autocomplete="off"
+          />
           <label for="endInput">Destination: </label>
-          <input type="text" id="endInput" placeholder="" />
+          <input type="text" id="endInput" placeholder="" autocomplete="off" />
           <button type="submit" class="button">Find Route</button>
           <button type="button" id="showDirections" class="button">
             Toggle Directions
@@ -56,7 +59,6 @@
         <div id="panel"></div>
       </div>
     </main>
-
     <script src="./helper.js"></script>
     <script src="./script.js"></script>
   </body>
