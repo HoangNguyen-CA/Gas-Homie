@@ -3,6 +3,7 @@ let distanceMatrixService;
 let placeService;
 let directionsService;
 let directionsRenderer;
+let geocoder;
 
 let startInput = document.getElementById('startInput');
 let endInput = document.getElementById('endInput');
@@ -12,6 +13,9 @@ let gasDisplay = document.getElementById('gasDisplay');
 let sortDurationButton = document.getElementById('sortDurationButton');
 let sortDistanceButton = document.getElementById('sortDistanceButton');
 let sortPriceButton = document.getElementById('sortPriceButton');
+
+let showDirectionsbutton = document.getElementById('showDirections');
+let panel = document.getElementById('panel');
 
 let startPlace;
 let endPlace;
@@ -29,7 +33,10 @@ function initMap() {
   directionsService = new google.maps.DirectionsService();
   distanceMatrixService = new google.maps.DistanceMatrixService();
   placeService = new google.maps.places.PlacesService(map);
+  geocoder = new google.maps.Geocoder();
+
   directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setPanel(document.getElementById('panel'));
   directionsRenderer.setMap(map);
 
   // Init autocomplete fields
@@ -76,6 +83,7 @@ function initMap() {
       };
 
       directionsService.route(directionsRequest, directionsRequestCallback);
+      panel.classList.toggle('panel--shown');
     }
   });
 }
@@ -85,6 +93,8 @@ function nearbySearchCallback(results, status) {
     /*
       GETTING DISTANCES USING DIRECTIONS MATRIX
     */
+
+    distanceDictionary = {};
 
     transformedResults = results.map((res) => res.geometry.location);
 
@@ -107,9 +117,9 @@ function nearbySearchCallback(results, status) {
     );
 
     //key is address of gas station
-    distanceDictionary = {};
 
     function distanceMatrixCallback1(results, status) {
+      console.log(results);
       if (status == 'OK') {
         let res = parseDistanceMatrix(results);
 
@@ -342,4 +352,8 @@ sortPriceButton.addEventListener('click', () => {
       console.log("ERROR");
   }
   renderGasStations();
+});
+
+showDirectionsbutton.addEventListener('click', () => {
+  panel.classList.toggle('panel--shown');
 });

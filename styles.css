@@ -48,6 +48,32 @@ main {
   height: 100vh;
 }
 
+#panel {
+  position: absolute;
+  width: 30rem;
+  max-width: 100%;
+
+  height: 100%;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 100;
+  top: 0;
+  left: 100%;
+  transition: transform 1s ease-out;
+  overflow: auto;
+}
+
+.panel--shown {
+  transform: translateX(-100%);
+}
+
+.map__container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -55,7 +81,7 @@ main {
   padding: 0.3em;
   overflow: auto;
   height: 100vh;
-  min-width: 30em;
+  min-width: 25em;
   background-color: #ffffff;
 }
 
@@ -99,7 +125,7 @@ main {
   border: 1px solid #222831;
 }
 
-#form .button {
+#form .button[type='submit'] {
   margin-top: 0.5em;
   background-color: #00adb5;
   color: #eeeeee;
@@ -110,19 +136,20 @@ main {
   letter-spacing: 0.1em;
 }
 
-#form .button:hover {
-  margin-top: 0.5em;
-  background-color: #00adb5;
-  color: #eeeeee;
+#form .button[type='submit']:hover {
   border: 0px;
   font-size: 1rem;
   padding: 0.6em 0;
 }
 
+#form .button {
+  margin-top: 1em;
+}
+
 .pac-container {
   background-color: rgb(255, 255, 255);
   position: absolute !important;
-  z-index: 1000;
+  z-index: 10;
   border-radius: 2px;
   border-top: 1px solid #00adb5;
   font-family: Arial, sans-serif;
@@ -202,6 +229,7 @@ main {
   flex-direction: column;
   text-align: center;
   align-items: center;
+  width: 90%;
 
   background-color: #eeeeee;
   padding: 1em;
